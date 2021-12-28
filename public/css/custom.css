@@ -1,0 +1,16 @@
+#logo{
+    height: 40px;
+    width: auto;
+}
+
+#profile_pic{
+    border-radius: 100%;
+    height: 300px;
+    width: auto;
+}
+
+#profile_pic_navbar{
+    border-radius: 100%;
+    height: 40px;
+    width: auto;
+}
