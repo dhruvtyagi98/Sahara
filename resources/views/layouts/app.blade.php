@@ -16,7 +16,10 @@
     <link type="text/css" rel="stylesheet" href="{{asset('css/custom.css')}}">
 </head>
 <body>
-    
+
+    @component('components.navbar') @endcomponent
+
+    </div>
     @yield('main-content')
 
     @yield('scripts')
@@ -29,6 +32,6 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
     <!-- Custom JavaScript File -->
-    <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
+    {{-- <script type="text/javascript" src="{{asset('js/custom.js')}}"></script> --}}
 </body>
 </html>

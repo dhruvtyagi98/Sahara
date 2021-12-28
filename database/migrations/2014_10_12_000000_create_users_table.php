@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('address');
             $table->bigInteger('phone_no');
-            $table->string('profile_pic');
+            $table->string('profile_pic')->default('default.png');
             $table->integer('role')->default(2)->comment('0:Admin; 1:Seller; 2:Customer');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
