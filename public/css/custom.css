@@ -14,3 +14,13 @@
     height: 40px;
     width: auto;
 }
+
+#profile{
+    margin-inline: 150px;
+    margin-block: 60px;
+    margin-bottom: 85px;
+}
+
+.error {
+    color: red;
+}
