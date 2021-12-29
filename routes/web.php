@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,8 +13,15 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('homepage');
+})->name('homepage');
+
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
+    Route::get('profile', 'UserController@index');
+    Route::post('check_password', 'UserController@checkPassword');
+    Route::post('update', 'UserController@update');
 });
 
 require __DIR__.'/auth.php';
