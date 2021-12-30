@@ -10,11 +10,11 @@ class UserService
     public function updateProfile($request)
     {
         $user = User::where('id', $request->id)->first();
-        $user->name     = $request->name;
-        $user->address  = $request->address;
-        $user->phone_no = $request->phone;
+        $user->name     = $request->user_name;
+        $user->address  = $request->user_address;
+        $user->phone_no = $request->phone_no;
 
-        $password       = $request->password;
+        $password       = $request->user_password;
         $profile_pic    = $request->file('profile_pic');
 
         if (isset($password)) 

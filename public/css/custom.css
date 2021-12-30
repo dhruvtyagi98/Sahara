@@ -1,4 +1,12 @@
+body{
+    background-image: url('../images/background_image.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 #logo{
+    border-radius: 15px;
     height: 40px;
     width: auto;
 }
@@ -23,4 +31,45 @@
 
 .error {
     color: red;
+}
+
+.jumbotron{
+    height: 250px;
+}
+
+.carousel-inner > .carousel-item > img{
+    height: 400px;
+    width: 100%;
+}
+
+.nav-item > .active{
+    border-bottom: 2px solid green;
+}
+
+.nav-item > .active > ion-icon{
+    color: green;
+}
+
+.card {
+    border-radius: 30px;
+    margin-top: 30px;
+}
+
+.card_center {
+    margin: auto!important;
+    padding: 0 2% 0 2%;
+}
+
+.card > .card-header{
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.modal-content{
+    border-radius: 20px;
+}
+
+.modal-footer > .btn {
+    width: 100%;
+    border-radius: 15px;
 }

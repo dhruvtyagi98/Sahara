@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #f3ffb0;">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container-fluid">
         <a class="nav-link navbar-brand" href="#">
             <div class="row">
@@ -12,7 +12,7 @@
         </a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a class="nav-link navbar_link active" aria-current="page" href="">
+                <a class="nav-link navbar_link active" aria-current="page" href="{{ route('homepage') }}">
                     <ion-icon name="home-outline"></ion-icon>&nbsp;Home
                 </a>
             </li>
@@ -53,7 +53,7 @@
 </nav>
 
 <!-- Modal -->
-<div class="modal fade" id="login_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade shadow" id="login_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
@@ -86,7 +86,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                 </form>
@@ -103,28 +102,34 @@
                 <form action="{{ route('register') }}" method="post">
                     @csrf
                     <div class="modal-body">
-                        <div class="mb-4">
-                            <label for="name">Name &nbsp;<span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Enter Name" required>
-                            @error('name')
-                                <div class="error">
-                                    {{ $message }}
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-4">
+                                    <label for="name">Name &nbsp;<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Enter Name" required>
+                                    @error('name')
+                                        <div class="error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                            @enderror
+                            </div>
+                            <div class="col">
+                                <div class="mb-4">
+                                    <label for="register_phone">Phone Number &nbsp;<span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" id="reqister_phone" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone Number" required>
+                                    @error('phone')
+                                        <div class="error">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label for="register_email">Email &nbsp;<span class="text-danger">*</span></label>
                             <input type="email" class="form-control" id="reqister_email" name="register_email" value="{{ old('register_email') }}" placeholder="Enter Email" required>
                             @error('register_email')
-                                <div class="error">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="mb-4">
-                            <label for="register_phone">Phone Number &nbsp;<span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" id="reqister_phone" name="phone" value="{{ old('phone') }}" placeholder="Enter Phone Number" required>
-                            @error('phone')
                                 <div class="error">
                                     {{ $message }}
                                 </div>
@@ -140,8 +145,16 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="register_password">Password &nbsp;<span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="register_password" name="register_password" placeholder="Enter Password" required>
+                            <div class="row">
+                                <div class="col-2">
+                                    <label style="width: 120px" for="register_password">Password &nbsp;<span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col">
+                                    <h4><ion-icon data-toggle="tooltip" data-bs-placement="right" title="
+                                        Minimum length 5, Atleast 1 Uppercase, Atleast 1 Digit" id="tooltip" name="information-circle-outline"></ion-icon></h4>
+                                </div>
+                            </div>
+                            <input type="password" class="form-control" id="register_password" name="register_password" pattern="^(?=.*?[A-Z])(?=.*?[0-9]).{5,}$" placeholder="Enter Password" required>
                         </div>
                         <div class="mb-4">
                             <label for="register_password_confirm">Confirm Password &nbsp;<span class="text-danger">*</span></label>
@@ -157,7 +170,6 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>
                 </form>
@@ -214,5 +226,7 @@
             $('#register_div').show();
             $('#login_div').hide();
         }
+
+        $('#tooltip').tooltip();
     });
 </script>
