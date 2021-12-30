@@ -2,8 +2,8 @@
 @section('title', 'Sahara | Profile')
 @section('main-content')
     <!-- Profile content -->
-<div class="card" id="profile">
-    <div class="card-header" style="background-color: #EBFCE5;">
+<div class="card shadow" id="profile">
+    <div class="card-header" style="background-color: #fdffea;">
         <h3><ion-icon class="mt-2" name="person-outline"></ion-icon>&nbsp;Profile</h3>
     </div>
     <div class="card-body">
@@ -22,13 +22,23 @@
                             <div class="mb-3">
                                 <label for="name">Name</label>
                                 <input type="hidden" name="id" value="{{ Auth::user()->id }}">
-                                <input class="form-control" type="text" name="name" value="{{ Auth::user()->name }}">
+                                <input class="form-control" type="text" name="user_name" value="{{ Auth::user()->name }}" required>
+                                @error('user_name')
+                                    <div class="error">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col">
                             <div class="mb-3">
                                 <label for="phone">Phone</label>
-                                <input class="form-control" id="phone" type="number" name="phone" value="{{ Auth::user()->phone_no }}">
+                                <input class="form-control" id="phone" type="number" name="phone_no" value="{{ Auth::user()->phone_no }}" required>
+                                @error('phone_no')
+                                    <div class="error">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -38,7 +48,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="address">Address</label>
-                        <input class="form-control" id="address" type="text" name="address" value="{{ Auth::user()->address }}">
+                        <input class="form-control" id="address" type="text" name="user_address" value="{{ Auth::user()->address }}" required>
+                        @error('user_address')
+                            <div class="error">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                     <div class="row">
                         <div class="col">
@@ -53,7 +68,7 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="password">New Password</label>
-                                <input class="form-control" type="password" name="password" id="new_password" disabled>
+                                <input class="form-control" type="password" name="user_password" id="new_password" disabled>
                             </div>
                         </div>
                     </div>
@@ -71,30 +86,30 @@
 @section('scripts')
 <script>
     $(document).ready(function(){
-    $("#old_password").focusout(function()
-    {
-        var email = $("#email").val();
-        var current_password = $(this).val();
-        $.ajax(
-        {
-            url: "/user/check_password",
-            type:'POST',
-            data:{'email':email,'current_password':current_password},
-            success : function(response)
-            {
-                if(response == false)
+        $("#old_password").focusout(function(){
+            var email = $("#email").val();
+            var current_password = $(this).val();
+            $.ajax({
+                url: "/user/check_password",
+                type:'POST',
+                data:{'email':email,'current_password':current_password},
+                success : function(response)
                 {
-                    $('#new_password').attr('disabled', true);
-                    $("#old_password_error").show();
+                    if(response.success == false){
+                        $('#new_password').attr('disabled', true);
+                        $("#old_password_error").show();
+                    }
+                    else{
+                        $("#old_password_error").hide();
+                        $('#new_password').attr('disabled', false);
+                    }
                 }
-                else
-                {
-                    $("#old_password_error").hide();
-                    $('#new_password').attr('disabled', false);
-                }
-            }
+            });
         });
+
+        if ('{{ session()->has("message") }}') {
+            toastr.success('{{ session()->get("message") }}');
+        }
     });
-});
 </script>
 @endsection
