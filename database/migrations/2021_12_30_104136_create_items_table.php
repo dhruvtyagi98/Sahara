@@ -19,6 +19,10 @@ class CreateItemsTable extends Migration
             $table->text('description');
             $table->string('picture');
             $table->string('category');
+            $table->string('gender');
+            $table->string('size');
+            $table->bigInteger('quantity');
+            $table->bigInteger('quantity_sold')->default(0);
             $table->bigInteger('price');
             $table->string('location');
             $table->bigInteger('seller_id');

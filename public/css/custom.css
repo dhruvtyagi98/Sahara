@@ -132,13 +132,14 @@ body{
 
 #add_product_heading{
     font-family: 'Nunito Sans', sans-serif;
-    margin-top: 2%;
+    margin-top: 1%;
     padding-left: 5%;
 }
 
 #add_product_div > .card{
     margin-left: 5%;
     width: 90%;
+    border-radius: 15px;
 }
 
 #default_product_img{

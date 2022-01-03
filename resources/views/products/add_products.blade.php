@@ -15,40 +15,62 @@
     </div>
     <div class="row" id="add_product_div">
         <div class="card shadow" style="padding-inline: 2%;">
-            <form action="" enctype="multipart/form-data">
+            <form action="/product/add_product" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="card-body" style="margin-top: 2%;">
                     <div class="row">
                         <div class="col-4">
                             <div class="mb-3">
                                 <label class="form-label" for="product_name">Product Name</label>
-                                <input class="form-control" type="text" name="name" placeholder="Enter Product Name" required>
+                                <input class="form-control" type="text" name="product_name" placeholder="Enter Product Name" required>
+                                @error('product_name')
+                                    <div class="error">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <div class="row">
                                     <div class="col-8">
                                         <label class="form-label" for="product_category">Category</label>
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" name="product_category" aria-label="Default select example" required>
                                             <option value="sneaker">Sneakers</option>
                                             <option value="shirt">Shirt</option>
                                             <option value="tshirt">T-shirt</option>
                                             <option value="trouser">Trousers</option>
                                             <option value="jean">Jeans</option>
                                             <option value="jacket">Jackets</option>
-                                            <option value="watche">Watches</option>
+                                            <option value="watch">Watches</option>
                                         </select>
+                                        @error('product_category')
+                                            <div class="error">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div class="col">
                                         <label class="form-label" for="gender">Gender</label>
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select name="gender" class="form-select" aria-label="Default select example" required>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
+                                            <option value="female">Unisex</option>
                                         </select>
+                                        @error('gender')
+                                            <div class="error">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="description">Description</label>
-                                <textarea name="" id="" class="form-control" rows="6"></textarea>
+                                <label class="form-label" for="product_description">Description</label>
+                                <textarea name="product_description" class="form-control" rows="6" required></textarea>
+                                @error('product_description')
+                                    <div class="error">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col">
@@ -62,28 +84,52 @@
                                     <div class="col">
                                         <div class="mb-3">
                                             <label for="product_img" class="form-label">Product Image</label>
-                                            <input class="form-control" type="file" id="product_img" name="image">
+                                            <input class="form-control" type="file" id="product_img" name="product_img">
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="size">Product Size</label>
-                                                    <input type="text" class="form-control" name="size" placeholder="Enter Product Size">
+                                                    <input type="text" class="form-control" name="product_size" placeholder="Enter Product Size" required>
+                                                    @error('product_size')
+                                                        <div class="error">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="quantity">Product Quantity</label>
-                                                    <input type="text" class="form-control" name="quantity" placeholder="Enter Product Quantity">
+                                                    <input type="text" class="form-control" name="product_quantity" placeholder="Enter Product Quantity" required>
+                                                    @error('product_quantity')
+                                                        <div class="error">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mb-5">
-                                            <label class="form-label" for="location">Location</label>
-                                            <input type="text" class="form-control" name="location" placeholder="Enter Product Location">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="location">Price</label>
+                                            <input type="number" class="form-control" name="product_price" placeholder="Enter Product Price" required>
+                                            @error('product_price')
+                                                <div class="error">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
-                                        <div class="mb-3 d-flex justify-content-end">
-                                            <button class="btn btn-primary mt-5" type="submit">Add Product</button>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="location">Location</label>
+                                            <input type="text" class="form-control" name="product_location" placeholder="Enter Product Location" required>
+                                            @error('product_location')
+                                                <div class="error">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-1 d-flex justify-content-end">
+                                            <button class="btn btn-primary mt-4" type="submit">Add Product</button>
                                         </div>
                                     </div>
                                 </div>

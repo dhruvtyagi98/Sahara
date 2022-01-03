@@ -22,7 +22,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
     Route::get('profile', 'UserController@index');
     Route::post('check_password', 'UserController@checkPassword');
     Route::post('update', 'UserController@update');
+});
+
+Route::group(['prefix' => 'product', 'middleware' => ['auth','CheckSeller']], function ()
+{
     Route::get('addProduct', 'ProductController@getAddProductView');
+    Route::post('add_product', 'ProductController@addProduct');
 });
 
 require __DIR__.'/auth.php';
