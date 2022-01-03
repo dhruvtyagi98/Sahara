@@ -18,19 +18,24 @@
             </li>
             @if (Auth::user())
             <li class="nav-item">
-                <a class="nav-link navbar_link" href="">
+                <a class="nav-link navbar_link" href="#">
                     <ion-icon name="pricetags-outline"></ion-icon>&nbsp;My Orders
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link navbar_link" href="">
+                <a class="nav-link navbar_link" href="#">
                     <ion-icon name="cart-outline"></ion-icon>&nbsp;Cart
                 </a>
             </li>
             @if (Auth::user()->role == 1)
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="/user/addProduct">
+                    <a class="nav-link navbar_link" href="/product/addProduct">
                         <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add Items
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link navbar_link" href="/product/MyProduct">
+                        <ion-icon name="bag-check-outline"></ion-icon>&nbsp;Listed Items
                     </a>
                 </li>
             @endif
@@ -200,6 +205,18 @@
 
 <script>
     $(document).ready(function(){
+
+        // Add and remove active class from navlinks
+        var path_name = window.location.pathname.split('/').pop();
+        var nav_links = $('.navbar_link');
+        for (let i = 0; i < nav_links.length; i++) 
+        {
+            nav_links[i].className = nav_links[i].className.replace(" active", "");
+
+            if (path_name == nav_links[i].href.split('/').pop()) 
+                nav_links[i].className += " active";
+        }
+
         $('#register').on('click', function(){
             $('#register_div').show();
             $('#login_div').hide();
