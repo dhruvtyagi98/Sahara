@@ -10,11 +10,23 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    /**
+     * This functions returns the profile view.
+     *
+     * @return void
+     */
     public function index()
     {
         return view('user.profile');
     }
 
+    /**
+     * This function is used to update User Profile and change password.
+     *
+     * @param UpdateUserRequest $request
+     * @return void
+     */
     public function update(UpdateUserRequest $request)
     {
         $validated = $request->validated();

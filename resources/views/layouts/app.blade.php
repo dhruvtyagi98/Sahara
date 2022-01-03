@@ -13,6 +13,11 @@
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    {{-- Google Fonts --}}
+    <link href="https://fonts.googleapis.com/css2?family=Licorice&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@900&display=swap" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link type="text/css" rel="stylesheet" href="{{asset('css/custom.css')}}">
 </head>
@@ -20,7 +25,6 @@
 
     @component('components.navbar') @endcomponent
 
-    </div>
     @yield('main-content')
 
 
@@ -44,6 +48,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Custom JavaScript File -->
-    {{-- <script type="text/javascript" src="{{asset('js/custom.js')}}"></script> --}}
+    <script type="text/javascript" src="{{asset('js/custom.js')}}"></script>
 </body>
 </html>

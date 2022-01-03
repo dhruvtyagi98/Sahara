@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: rgb(243, 255, 176, 0);">
     <div class="container-fluid">
         <a class="nav-link navbar-brand" href="#">
             <div class="row">
@@ -16,6 +16,7 @@
                     <ion-icon name="home-outline"></ion-icon>&nbsp;Home
                 </a>
             </li>
+            @if (Auth::user())
             <li class="nav-item">
                 <a class="nav-link navbar_link" href="">
                     <ion-icon name="pricetags-outline"></ion-icon>&nbsp;My Orders
@@ -26,12 +27,20 @@
                     <ion-icon name="cart-outline"></ion-icon>&nbsp;Cart
                 </a>
             </li>
+            @if (Auth::user()->role == 1)
+                <li class="nav-item">
+                    <a class="nav-link navbar_link" href="/user/addProduct">
+                        <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add Items
+                    </a>
+                </li>
+            @endif
+            @endif
         </ul>
         <ul class="navbar-nav">
             @if (Auth::user())
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img id="profile_pic_navbar" src="{{ asset(Auth::user()->profile_pic) }}">{{Auth::user()->name}}</a>
+                    <img id="profile_pic_navbar" src="{{ asset(Auth::user()->profile_pic) }}">&nbsp;{{Auth::user()->name}}</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="/user/profile">Profile</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -102,6 +111,17 @@
                 <form action="{{ route('register') }}" method="post">
                     @csrf
                     <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-2"><label for="role">I am a :</label></div>
+                            <div class="col">
+                                <input class="form-check-input" type="radio" name="role" value="2" checked>
+                                <label class="form-check-label" for="flexRadioDefault1">Customer</label>
+                            </div>
+                            <div class="col">
+                                <input class="form-check-input" type="radio" name="role" value="1">
+                                <label class="form-check-label" for="flexRadioDefault1">Seller</label>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="mb-4">
@@ -158,7 +178,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="register_password_confirm">Confirm Password &nbsp;<span class="text-danger">*</span></label>
-                            <input type="password" class="form-control" id="register_password_confirm" name="password_confirmation" placeholder="Confirm Password" required>
+                            <input type="password" class="form-control" id="register_password_confirm" name="register_password_confirmation" placeholder="Confirm Password" required>
                             @error('register_password')
                                 <div class="error">
                                     {{ $message }}
