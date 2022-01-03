@@ -37,11 +37,6 @@ body{
     height: 250px;
 }
 
-.carousel-inner > .carousel-item > img{
-    height: 400px;
-    width: 100%;
-}
-
 .nav-item > .active{
     border-bottom: 2px solid green;
 }
@@ -51,7 +46,7 @@ body{
 }
 
 .card {
-    border-radius: 30px;
+    border-radius: 20px;
     margin-top: 30px;
 }
 
@@ -61,8 +56,8 @@ body{
 }
 
 .card > .card-header{
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .modal-content{
@@ -72,4 +67,83 @@ body{
 .modal-footer > .btn {
     width: 100%;
     border-radius: 15px;
+}
+
+#homepage_main_img{
+    border-top-right-radius: 150px;
+    border-bottom-left-radius: 150px;
+    border-top-left-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+
+#homepage_header_1{
+    font-family: 'Licorice', 'cursive';
+    font-weight: 1000;
+    color: brown;
+}
+
+#homepage_header_2{
+    font-size: 80px;
+    font-family: 'Nunito Sans', sans-serif;
+    color: rgba(0, 0, 0, 0.575);
+}
+
+#homepage_main_font{
+    margin-left: 10%;
+    margin-block: 5%;
+}
+
+.card > .card-img-top{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.carousel-item{
+    margin-left: 15%;
+}
+
+#homepage_heading{
+    margin-top: 8%;
+    text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+#homepage_heading2{
+    margin-top: 3%;
+    margin-bottom: 4%;
+    text-align: center;
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+#for_you_content{
+    margin-left: 3%;
+}
+
+#for_you_content > .col-3 > .card {
+    border-radius: 10px;
+    /* margin-bottom: 10%; */
+}
+
+#for_you_content > .col-3 > .card > .card-img-top{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    height: 250px;
+}
+
+#add_product_heading{
+    font-family: 'Nunito Sans', sans-serif;
+    margin-top: 2%;
+    padding-left: 5%;
+}
+
+#add_product_div > .card{
+    margin-left: 5%;
+    width: 90%;
+}
+
+#default_product_img{
+    border-radius: 5px;
+    border: 1px solid;
+    height: 360px;
+    width: 400px;
 }
