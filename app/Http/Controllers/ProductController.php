@@ -6,6 +6,7 @@ use ProductService;
 use App\Http\Requests\AddProductRequest;
 use App\Items;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -21,13 +22,23 @@ class ProductController extends Controller
     }
 
     /**
-     * Returns view of Products listed by user
+     * Returns view of Products listed by seller with all the products listed by the seller
      *
-     * @return void
+     * @param object $products
+     * @return array products/error
      */
     public function getUserProductsView()
     {
-        return view('user.listed-items');
+        try {
+            $products = ProductService::getAllUserProducts(Auth::user()->id);
+            if (!$products)
+                return view('user.listed-items')->withErrors(['message' => 'No Products Found']);
+            else
+                return view('user.listed-items')->with(['products' => $products]);
+
+        } catch (Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -84,4 +95,25 @@ class ProductController extends Controller
         else
             return (['success' => true, 'data' => $results]);
     }
+
+    /**
+     * Returns view of Products listed by seller with all the products listed by the seller
+     *
+     * @param object $products
+     * @return array products/error
+     */
+    public function getProduct($id)
+    {
+        try {
+            $products = ProductService::getProduct($id);
+            if (!$products)
+                return(['success' => false, 'message' => 'No Products Found']);
+            else
+                return (['success' => true, 'product' => $products]);
+
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
 }

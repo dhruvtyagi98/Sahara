@@ -23,7 +23,7 @@ class ProductService
         $product_image        = $request->file('product_img');
 
         $image_full_name      = $request->product_name.'.'.strtolower($product_image->getClientOriginalExtension());
-        $upload_path          = 'images/users/';
+        $upload_path          = 'images/users/'.Auth::user()->id.'/';
         $image_url            = $upload_path.$image_full_name;
         $product_image->move($upload_path,$image_full_name);
         $image  = $image_url;
@@ -33,5 +33,31 @@ class ProductService
             return true;
         else
             return false;
+    }
+
+    public function getAllUserProducts($seller_id)
+    {
+        try {
+            $products = Items::where('seller_id', $seller_id)->get();
+            if (empty($products))
+                return false;
+            else    
+                return $products;
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getProduct($id)
+    {
+        try {
+            $product = Items::where('id', $id)->first();
+            if (empty($product))
+                return false;
+            else    
+                return $product;
+        } catch (Throwable $th) {
+            throw $th;
+        }
     }
 }

@@ -34,7 +34,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="/product/MyProduct">
+                    <a class="nav-link navbar_link" href="/product/user_products">
                         <ion-icon name="bag-check-outline"></ion-icon>&nbsp;Listed Items
                     </a>
                 </li>
