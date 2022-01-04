@@ -158,3 +158,19 @@ body{
 .carousel-item > .row > .col-3 > .card{
     height: 90%;
 }
+
+#user_listed_items > .row > .col > .card {
+    margin: 5%;
+}
+
+#user_selected_product{
+    height: 92%;
+    width: 80%;
+    margin-left: 15%;
+}
+
+#user_all_items{
+    margin-right: 1%;
+    margin-left: 0%;
+    padding-left: 0%;
+}

@@ -31,6 +31,8 @@ Route::group(['prefix' => 'product', 'middleware' => ['auth','CheckSeller']], fu
     Route::get('addProduct', 'ProductController@getAddProductView');
     Route::post('add_product', 'ProductController@addProduct');
     Route::get('user_products', 'ProductController@getUserProductsView');
+    Route::get('get_user_products', 'ProductController@getAllUserProducts');
+    Route::get('get_product/{id}', 'ProductController@getProduct');
 });
 
 require __DIR__.'/auth.php';
