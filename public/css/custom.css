@@ -96,6 +96,12 @@ body{
 .card > .card-img-top{
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+    height: 300px;
+}
+
+.card > a{
+    color: #000000;
+    text-decoration: none;
 }
 
 .carousel-item{
@@ -147,4 +153,8 @@ body{
     border: 1px solid;
     height: 360px;
     width: 400px;
+}
+
+.carousel-item > .row > .col-3 > .card{
+    height: 90%;
 }

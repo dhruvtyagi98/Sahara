@@ -18,6 +18,8 @@ Route::get('/', function () {
     return view('homepage');
 })->name('homepage');
 
+Route::get('get_popular_products', 'ProductController@getPopularProducts');
+
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
     Route::get('profile', 'UserController@index');
     Route::post('check_password', 'UserController@checkPassword');
@@ -28,6 +30,7 @@ Route::group(['prefix' => 'product', 'middleware' => ['auth','CheckSeller']], fu
 {
     Route::get('addProduct', 'ProductController@getAddProductView');
     Route::post('add_product', 'ProductController@addProduct');
+    Route::get('user_products', 'ProductController@getUserProductsView');
 });
 
 require __DIR__.'/auth.php';
