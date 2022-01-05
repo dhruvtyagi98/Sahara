@@ -12,7 +12,7 @@
         <div class="col-4">
         </div>
         <div class="col" id="user_all_items">
-            <div class="card" style="margin-left: 0; margin-top: 3%;">
+            <div class="card shadow" style="margin-left: 0; margin-top: 3%;">
                 <div class="card-body">
                     <table class="table-borderless" id="user_products_table">
                         <thead>

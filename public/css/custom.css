@@ -174,3 +174,32 @@ body{
     margin-left: 0%;
     padding-left: 0%;
 }
+
+#product_details{
+    position: relative;
+}
+
+#product_details > .card > img {
+    height: 300px;
+    width: 300px;
+    border-radius: 30px;
+    margin-inline: 37%;
+    top: -20%;
+    position: absolute;
+}
+
+#product_details > .card {
+    margin-inline: 13%;
+    margin-top: 10%;
+    position: relative;
+}
+
+#product_details > .card > .card-body {
+    margin-top: 17%;
+    margin-left: 50px;
+}
+
+#product_details > .card > .card-body > .row > .col > .card-title {
+    font-family: 'Nunito Sans', sans-serif;
+    margin-top: 3%;
+}
