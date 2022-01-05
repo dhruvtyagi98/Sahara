@@ -41,6 +41,20 @@ class ProductController extends Controller
         }
     }
 
+    public function getProductDetails($id)
+    {
+        try {
+            $product = ProductService::getProduct($id);
+            if (!$product)
+                return view('products.product_details')->withErrors(['message' => 'No Product Found']);
+            else
+                return view('products.product_details')->with(['product' => $product]);
+
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
     /**
      * The Functions receives data of product and insert it into the database.
      *
@@ -107,7 +121,7 @@ class ProductController extends Controller
         try {
             $products = ProductService::getProduct($id);
             if (!$products)
-                return(['success' => false, 'message' => 'No Products Found']);
+                return (['success' => false, 'message' => 'No Products Found']);
             else
                 return (['success' => true, 'product' => $products]);
 
