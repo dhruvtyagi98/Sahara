@@ -127,7 +127,7 @@ body{
 
 #for_you_content > .col-3 > .card {
     border-radius: 10px;
-    /* margin-bottom: 10%; */
+    margin-bottom: 10%;
 }
 
 #for_you_content > .col-3 > .card > .card-img-top{
@@ -150,7 +150,7 @@ body{
 
 #default_product_img{
     border-radius: 5px;
-    border: 1px solid;
+    border: 0.2px solid rgb(204, 204, 204);
     height: 360px;
     width: 400px;
 }
@@ -202,4 +202,22 @@ body{
 #product_details > .card > .card-body > .row > .col > .card-title {
     font-family: 'Nunito Sans', sans-serif;
     margin-top: 3%;
+}
+
+#user_all_items > .card {
+    height: 270px;
+}
+
+#search_card_body > .row > .col-3 > img {
+    height: 200px;
+    border-radius: 10px;
+}
+
+#search_card_body {
+    margin: 2%;
+    padding: 0;
+}
+
+#search_filter > .card {
+    margin-left: 10%;
 }

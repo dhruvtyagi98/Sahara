@@ -17,29 +17,34 @@
                 </a>
             </li>
             @if (Auth::user())
-            <li class="nav-item">
-                <a class="nav-link navbar_link" href="#">
-                    <ion-icon name="pricetags-outline"></ion-icon>&nbsp;My Orders
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link navbar_link" href="#">
-                    <ion-icon name="cart-outline"></ion-icon>&nbsp;Cart
-                </a>
-            </li>
-            @if (Auth::user()->role == 1)
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="/product/addProduct">
-                        <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add Items
+                    <a class="nav-link navbar_link" href="#">
+                        <ion-icon name="pricetags-outline"></ion-icon>&nbsp;My Orders
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="/product/user_products">
-                        <ion-icon name="bag-check-outline"></ion-icon>&nbsp;Listed Items
+                    <a class="nav-link navbar_link" href="#">
+                        <ion-icon name="cart-outline"></ion-icon>&nbsp;Cart
                     </a>
                 </li>
+                @if (Auth::user()->role == 1)
+                    <li class="nav-item">
+                        <a class="nav-link navbar_link" href="/product/addProduct">
+                            <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add Items
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navbar_link" href="/product/user_products">
+                            <ion-icon name="bag-check-outline"></ion-icon>&nbsp;Listed Items
+                        </a>
+                    </li>
+                    
+                @endif
             @endif
-            @endif
+            <form class="d-flex" action="search" method="GET">
+                <input class="form-control me-2" name="search" type="search" size="50" placeholder="Search" aria-label="Search" style="margin-left: 10px;">
+                <button class="btn" style="background-color: #E0989C; color: #ffffff" type="submit">Search</button>
+            </form>
         </ul>
         <ul class="navbar-nav">
             @if (Auth::user())

@@ -19,7 +19,9 @@ Route::get('/', function () {
 })->name('homepage');
 
 Route::get('get_popular_products', 'ProductController@getPopularProducts');
-Route::get('product_details/{id}', 'ProductController@getProductDetails');
+Route::get('/product/product_details/{id}', 'ProductController@getProductDetails');
+Route::get('search', 'ProductController@search');
+Route::post('search-filter', 'ProductController@searchFilter');
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
     Route::get('profile', 'UserController@index');
@@ -33,7 +35,7 @@ Route::group(['prefix' => 'product', 'middleware' => ['auth','CheckSeller']], fu
     Route::post('add_product', 'ProductController@addProduct');
     Route::get('user_products', 'ProductController@getUserProductsView');
     Route::get('get_user_products', 'ProductController@getAllUserProducts');
-    Route::get('get_product/{id}', 'ProductController@getProductDetails');
+    Route::get('get_product/{id}', 'ProductController@getProduct');
 });
 
 require __DIR__.'/auth.php';
