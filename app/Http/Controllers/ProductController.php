@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use ProductService;
 use App\Http\Requests\AddProductRequest;
+use App\Http\Requests\SearchRequest;
 use App\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,13 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * Returns view of Products details by getting the data on the basis of product id
+     *
+     * @param int $id
+     * @param object $product
+     * @return array products/error
+     */
     public function getProductDetails($id)
     {
         try {
@@ -130,4 +138,33 @@ class ProductController extends Controller
         }
     }
 
+    public function search(SearchRequest $request)
+    {
+        try {
+            $products = ProductService::search($request);
+
+            if (!$products)
+                return view('products.search_results')->withErrors(['message' => 'No Products Found']);
+            else
+                return view('products.search_results')->with(['products' => $products]);
+
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function searchFilter(Request $request)
+    {
+        try {
+            $products = ProductService::searchFilter($request);
+
+            if (!$products)
+                return view('products.search_results')->withErrors(['message' => 'No Products Found', 'products' => null]);
+            else
+                return view('products.search_results')->with(['products' => $products]);
+
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
 }

@@ -4,9 +4,22 @@ namespace App\Services;
 
 use App\Items;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class ProductService
 {
+    /**
+     * This function is used to add products to the database
+     *
+     * @param AddProductRequest $request
+     * @param App\Items $product
+     * @param file $product_image
+     * @param string $image_full_name
+     * @param string $upload_path
+     * @param string $image_url
+     * @param string $image
+     * @return bool
+     */
     public function addProduct($request)
     {
         $product = new Items();
@@ -35,6 +48,14 @@ class ProductService
             return false;
     }
 
+    /**
+     * This Function gets all the products from the database listed by a seller on the basis of
+     * seller_id
+     *
+     * @param int $seller_id
+     * @param object $products
+     * @return object/bool $products/false
+     */
     public function getAllUserProducts($seller_id)
     {
         try {
@@ -48,6 +69,13 @@ class ProductService
         }
     }
 
+    /**
+     * This function gets a product from the database on the basis of id.
+     *
+     * @param int $id
+     * @param object $product
+     * @return object/bool $product/false
+     */
     public function getProduct($id)
     {
         try {
@@ -56,6 +84,61 @@ class ProductService
                 return false;
             else    
                 return $product;
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    /**
+     * This function gets products from the database on the basis of the 
+     * name and description of the product that the user searched.
+     *
+     * @param SearchRequest $request
+     * @param object $products
+     * @return object/bool $products/false
+     */
+    public function search($request)
+    {
+        try {
+            if ($request->sort_price == 'DESC') {
+                $products = Items::where('name', 'like', '%'.$request->search.'%')
+                            ->orWhere('description', 'like', '%'.$request->search.'%')
+                            ->orderBy('price', 'DESC')
+                            ->paginate(10);
+            }
+            else{
+                $products = Items::where('name', 'like', '%'.$request->search.'%')
+                            ->orWhere('description', 'like', '%'.$request->search.'%')
+                            ->orderBy('price')
+                            ->paginate(10);
+            }
+
+            if (empty($products))
+                return false;
+            else    
+                return $products->appends(Input::except('page'));
+
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function searchFilter($request)
+    {
+        try {
+            $products = Items::where('name', 'like', '%'.$request->search.'%')
+                            ->where(function($query) use($request){
+                                $query->whereBetween('price', [$request->min_price, $request->max_price]);
+                            })
+                            ->orWhere('description', 'like', '%'.$request->search.'%')
+                            ->paginate(10);
+
+            dd($products);
+            if (empty($products))
+                return false;
+            else    
+                return $products->appends(Input::except('page'));
+
         } catch (Throwable $th) {
             throw $th;
         }
