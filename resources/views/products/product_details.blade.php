@@ -10,7 +10,7 @@
                     <h4 class="card-title">{{ $product->name }}</h4>
                 </div>
                 @if (Auth::user())
-                    <form action="/user/add_to_cart" method="POST">
+                    <form action="/user/cart" method="POST">
                         @csrf
                         <div class="col d-flex justify-content-end">
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

@@ -107,7 +107,7 @@
                                         <div class="col-3">\
                                             <div class="card shadow mb-3" style="width: 18rem;">\
                                                 <img src="images/'+product[i].picture+'" class="card-img-top d-block w-100" alt="...">\
-                                                <a href="product/product_details/'+product[i].id+'">\
+                                                <a href="product/'+product[i].id+'">\
                                                     <div class="card-body">\
                                                         <h5 class="card-title">'+product[i].name+'</h5>';
 
@@ -121,7 +121,7 @@
                                         <div class="col-3">\
                                             <div class="card shadow mb-3" style="width: 18rem;">\
                                                 <img src="images/'+product[i].picture+'" class="card-img-top d-block w-100" alt="...">\
-                                                <a href="product/product_details/'+product[i].id+'">\
+                                                <a href="product/'+product[i].id+'">\
                                                     <div class="card-body">\
                                                         <h5 class="card-title">'+product[i].name+'</h5>';
 
@@ -135,7 +135,7 @@
                                         <div class="col-3">\
                                             <div class="card shadow mb-3" style="width: 18rem;">\
                                                 <img src="images/'+product[i].picture+'" class="card-img-top d-block w-100" alt="...">\
-                                                <a href="product/product_details/'+product[i].id+'">\
+                                                <a href="product/'+product[i].id+'">\
                                                     <div class="card-body">\
                                                         <h5 class="card-title">'+product[i].name+'</h5>';
 

@@ -15,7 +15,6 @@
                 <div class="card shadow">
                     <div class="card-body" style="margin: 3%;">
                         <form action="search" method="GET">
-                            @csrf
                             <div class="row">
                                 <h5>Sort</h5>
                                 <input type="hidden" name="search" value="{{ app('request')->input('search') }}">
@@ -28,7 +27,7 @@
                                 </div>
                             </div>
                         </form>
-                        <form action="search-filter" method="POST">
+                        <form action="search" method="POST">
                             @csrf
                             <div class="row">
                                 <h5>Filters</h5>
@@ -88,7 +87,7 @@
             @if (isset($products))
                 @foreach ($products as $product)
                     <div class="card shadow" style="margin-left: 0; margin-top: 3%;">
-                        <a href="product/product_details/{{ $product->id }}" style="text-decoration: none;color:black">
+                        <a href="product/{{ $product->id }}" style="text-decoration: none;color:black">
                             <div class="card-body" id="search_card_body">
                                 <div class="row">
                                     <div class="col-3">

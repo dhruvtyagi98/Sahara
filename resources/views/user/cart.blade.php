@@ -23,7 +23,7 @@
                         <div class="row">
                             <p>Total Price : Rs {{ $price['total'] }}</p>
                         </div>
-                        <form action="/user/checkout" method="POST">
+                        <form action="/user/order" method="POST">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <input type="hidden" name="price" value="{{ $price['total'] }}">
@@ -41,7 +41,7 @@
             @if (isset($products))
                 @foreach ($products as $product)
                     <div class="card shadow" style="margin-left: 0; margin-top: 3%;">
-                        <a href="/product/product_details/{{ $product->id }}" style="text-decoration: none;color:black">
+                        <a href="/product/{{ $product->id }}" style="text-decoration: none;color:black">
                             <div class="card-body" id="search_card_body">
                                 <div class="row">
                                     <div class="col-3">
