@@ -8,17 +8,6 @@
         @else
             <h2 id="add_product_heading" style="text-align: center">0 Results Found!</h2>
         @endif
-        {{-- <div class="col">
-            <div class="card d-flex" style="width: 250px;">
-                <div class="card-body">
-                    <div class="card-title"><h5>Sort</h5></div>
-                    <select class="form-select mb-3" name="product_category" aria-label="Default select example">
-                        <option value="ascending">Price Low to High</option>
-                        <option value="descending">Price High to Low</option>
-                    </select>
-                </div>
-            </div>
-        </div> --}}
     </div>
     <div class="row">
         <div class="col-4 position-fixed">
@@ -136,6 +125,15 @@
                         </a>
                     </div>
                 @endforeach
+            @endif
+            @if ($products->total() == 0)
+                <div class="card shadow" style="margin-left: 0; margin-top: 3%; height: 400px;">
+                    <div class="card-body" id="search_card_body" style="margin: 0;">
+                        <div class="row">
+                            <img src="{{ asset('images/no-product-found.png') }}" style="height: 400px;border-radius: 10px;">
+                        </div>
+                    </div>
+                </div>
             @endif
         </div>
     </div>

@@ -27,6 +27,9 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
     Route::get('profile', 'UserController@index');
     Route::post('check_password', 'UserController@checkPassword');
     Route::post('update', 'UserController@update');
+    Route::post('add_to_cart', 'CartController@addToCart');
+    Route::get('get_cart/{id}', 'CartController@getCart');
+    Route::get('cart_delete', 'CartController@removeFromCart');
 });
 
 Route::group(['prefix' => 'product', 'middleware' => ['auth','CheckSeller']], function ()

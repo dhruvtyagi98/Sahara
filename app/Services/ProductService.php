@@ -36,7 +36,7 @@ class ProductService
         $product_image        = $request->file('product_img');
 
         $image_full_name      = $request->product_name.'.'.strtolower($product_image->getClientOriginalExtension());
-        $upload_path          = 'images/users/'.Auth::user()->id.'/';
+        $upload_path          = 'users/'.Auth::user()->id.'/';
         $image_url            = $upload_path.$image_full_name;
         $product_image->move($upload_path,$image_full_name);
         $image  = $image_url;
