@@ -41,7 +41,7 @@
                     
                 @endif
             @endif
-            <form class="d-flex" action="search" method="GET">
+            <form class="d-flex" action="/search" method="GET">
                 <input class="form-control me-2" name="search" type="search" size="50" placeholder="Search" aria-label="Search" style="margin-left: 10px;">
                 <button class="btn" style="background-color: #E0989C; color: #ffffff" type="submit">Search</button>
             </form>

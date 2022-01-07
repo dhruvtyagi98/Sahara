@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Cart;
 use App\Items;
+use App\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartServices
@@ -67,6 +69,47 @@ class CartServices
             $cart = Cart::where('id', $id)->delete();
             if ($cart)
                 return true;
+            else    
+                return false;
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    /**
+     * Add orders to orders table.
+     *
+     * @param Request $request
+     * @param App\Order $cart
+     * @return bool
+     */
+    public function checkout($id, $price)
+    {
+        try {
+            $cart_items = Cart::where('user_id', $id)->get();
+            $order_ids  = [];
+            $i          = 0;
+
+            foreach ($cart_items as $item)
+            {
+                $order_ids[$i] = $item->item_id;
+                $i++;
+            }
+
+            $order = new Order();
+
+            $order->user_id = $id;
+            $order->order   = json_encode($order_ids);
+            $order->address = Auth::user()->address;
+            $order->price   = $price; 
+
+            if ($order->save()){
+                
+                for ($i=0; $i < count($order_ids); $i++) {
+                    $remove_from_cart = Cart::where('user_id', $id)->delete();   
+                }
+                return true;
+            }
             else    
                 return false;
         } catch (Throwable $th) {

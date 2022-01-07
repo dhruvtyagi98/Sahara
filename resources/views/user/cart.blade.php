@@ -23,9 +23,14 @@
                         <div class="row">
                             <p>Total Price : Rs {{ $price['total'] }}</p>
                         </div>
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-primary" type="submit">Checkout</button>
-                        </div>
+                        <form action="/user/checkout" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="price" value="{{ $price['total'] }}">
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-primary" type="submit">Checkout</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

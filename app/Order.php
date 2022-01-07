@@ -13,6 +13,9 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
-        'item_id',
+        'order',
+        'price',
+        'payment_method',
+        'address',
     ];
 }
