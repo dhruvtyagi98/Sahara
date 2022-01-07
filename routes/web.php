@@ -23,14 +23,18 @@ Route::get('/product/product_details/{id}', 'ProductController@getProductDetails
 Route::get('search', 'ProductController@search');
 Route::post('search-filter', 'ProductController@searchFilter');
 
-Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], function()
+{
     Route::get('profile', 'UserController@index');
     Route::post('check_password', 'UserController@checkPassword');
     Route::post('update', 'UserController@update');
+
     Route::post('add_to_cart', 'CartController@addToCart');
     Route::get('get_cart/{id}', 'CartController@getCart');
-    Route::get('cart_delete', 'CartController@removeFromCart');
+    Route::delete('cart', 'CartController@removeFromCart');
+
     Route::post('checkout', 'CartController@checkout');
+    Route::get('order/{id}', 'OrderController@getOrderHistory');
 });
 
 Route::group(['prefix' => 'product', 'middleware' => ['auth','CheckSeller']], function ()

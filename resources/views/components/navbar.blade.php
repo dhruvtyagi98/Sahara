@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: rgb(243, 255, 176, 0);">
     <div class="container-fluid">
-        <a class="nav-link navbar-brand" href="#">
+        <a class="nav-link navbar-brand" href="{{ route('homepage') }}">
             <div class="row">
                 <div class="col-6">
                     <img id="logo" src="{{ asset('images/logo.png') }}" alt="">
@@ -17,8 +17,9 @@
                 </a>
             </li>
             @if (Auth::user())
+                @if (Auth::user()->role == 2)
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="#">
+                    <a class="nav-link navbar_link" href="/user/order/{{ Auth::user()->id }}">
                         <ion-icon name="pricetags-outline"></ion-icon>&nbsp;My Orders
                     </a>
                 </li>
@@ -27,6 +28,7 @@
                         <ion-icon name="cart-outline"></ion-icon>&nbsp;Cart
                     </a>
                 </li>
+                @endif
                 @if (Auth::user()->role == 1)
                     <li class="nav-item">
                         <a class="nav-link navbar_link" href="/product/addProduct">

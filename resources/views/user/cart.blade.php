@@ -53,7 +53,9 @@
                                                 <h4>{{ $product->name }}</h4>
                                             </div>
                                             <div class="col d-flex justify-content-end">
-                                                <form action="/user/cart_delete" method="GET">
+                                                <form action="/user/cart" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <input type="hidden" name="id" value="{{ $product->cart_id }}">
                                                     <button type="submit" class="btn text-danger "><h4 style="margin-bottom: 0;"><ion-icon name="trash-outline"></ion-icon></h4></button>
                                                 </form>
