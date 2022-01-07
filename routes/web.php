@@ -30,6 +30,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function(){
     Route::post('add_to_cart', 'CartController@addToCart');
     Route::get('get_cart/{id}', 'CartController@getCart');
     Route::get('cart_delete', 'CartController@removeFromCart');
+    Route::post('checkout', 'CartController@checkout');
 });
 
 Route::group(['prefix' => 'product', 'middleware' => ['auth','CheckSeller']], function ()

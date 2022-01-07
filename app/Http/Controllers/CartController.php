@@ -57,8 +57,13 @@ class CartController extends Controller
             return back()->withErrors('Please try Again Later!');
     }
 
-    public function checkout($request)
+    public function checkout(Request $request)
     {
-        
+        $result = CartServices::checkout($request->user_id, $request->price);
+
+        if ($result) 
+            return back()->with('message', 'Your Order will Arrive Shortly');
+        else    
+            return back()->withErrors('Please try Again Later!');
     }
 }
