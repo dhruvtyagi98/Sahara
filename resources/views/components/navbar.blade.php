@@ -19,24 +19,24 @@
             @if (Auth::user())
                 @if (Auth::user()->role == 2)
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="/user/order/{{ Auth::user()->id }}">
+                    <a class="nav-link navbar_link" href="/user/order?id={{ Auth::user()->id }}">
                         <ion-icon name="pricetags-outline"></ion-icon>&nbsp;My Orders
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="/user/get_cart/{{ Auth::user()->id }}">
+                    <a class="nav-link navbar_link" href="/user/cart?id={{ Auth::user()->id }}">
                         <ion-icon name="cart-outline"></ion-icon>&nbsp;Cart
                     </a>
                 </li>
                 @endif
                 @if (Auth::user()->role == 1)
                     <li class="nav-item">
-                        <a class="nav-link navbar_link" href="/product/addProduct">
+                        <a class="nav-link navbar_link" href="/seller/product">
                             <ion-icon name="bag-add-outline"></ion-icon>&nbsp;Add Items
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navbar_link" href="/product/user_products">
+                        <a class="nav-link navbar_link" href="/seller?id={{ Auth::user()->id }}">
                             <ion-icon name="bag-check-outline"></ion-icon>&nbsp;Listed Items
                         </a>
                     </li>
@@ -219,8 +219,13 @@
         for (let i = 0; i < nav_links.length; i++) 
         {
             nav_links[i].className = nav_links[i].className.replace(" active", "");
-
-            if (path_name == nav_links[i].href.split('/').pop()) 
+            var link = nav_links[i].href.split('/').pop();
+            
+            if (path_name == ''){
+                nav_links[i].className += " active";
+                break;
+            } 
+            else if (link.includes(path_name)) 
                 nav_links[i].className += " active";
         }
 

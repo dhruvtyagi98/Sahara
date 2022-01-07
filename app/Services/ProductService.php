@@ -126,14 +126,23 @@ class ProductService
     public function searchFilter($request)
     {
         try {
-            $products = Items::where('name', 'like', '%'.$request->search.'%')
-                            ->where(function($query) use($request){
-                                $query->whereBetween('price', [$request->min_price, $request->max_price]);
-                            })
-                            ->orWhere('description', 'like', '%'.$request->search.'%')
+            $search_name        = [['name', 'like', '%'.$request->search.'%']];
+            $search_description = [['description', 'like', '%'.$request->search.'%']];
+
+            if (isset($request->product_category)){
+                array_push($search_name, ['category', $request->product_category]);
+                array_push($search_description, ['category', $request->product_category]);
+            }
+            if (isset($request->gender)){
+                array_push($search_name, ['gender', $request->gender]);
+                array_push($search_description, ['gender', $request->gender]);
+            }
+
+            $products = Items::where($search_name)
+                            ->orWhere($search_description)
                             ->paginate(10);
 
-            dd($products);
+            // dd($products);
             if (empty($products))
                 return false;
             else    

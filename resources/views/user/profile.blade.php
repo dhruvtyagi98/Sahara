@@ -7,8 +7,9 @@
         <h3><ion-icon class="mt-2" name="person-outline"></ion-icon>&nbsp;Profile</h3>
     </div>
     <div class="card-body">
-        <form action="/user/update" method="POST" enctype="multipart/form-data">
+        <form action="/user/profile" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="row">
                 <div class="col-5" style="margin-left: 80px;">
                     <div class="mt-3">
@@ -90,7 +91,7 @@
             var email = $("#email").val();
             var current_password = $(this).val();
             $.ajax({
-                url: "/user/check_password",
+                url: "/user/password",
                 type:'POST',
                 data:{'email':email,'current_password':current_password},
                 success : function(response)

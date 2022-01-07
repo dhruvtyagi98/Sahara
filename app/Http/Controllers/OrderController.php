@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function getOrderHistory($id)
+    public function getOrderHistory(Request $request)
     {
         try {
-            $orders      = OrderService::getOrderHistory($id);
-            $products    = OrderService::getOrderItems($orders);
+            $orders   = OrderService::getOrderHistory($request->id);
+            $products = OrderService::getOrderItems($orders);
             
             if (!$orders)
                 return view('user.orders')->withErrors(['message' => 'No orders Found']);

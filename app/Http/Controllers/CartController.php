@@ -15,10 +15,10 @@ class CartController extends Controller
      * @param object $cart_items
      * @return void
      */
-    public function getCart($id)
+    public function getCart(Request $request)
     {
         try {
-            $cart_items = CartServices::getCartItems($id); 
+            $cart_items = CartServices::getCartItems($request->id); 
             if (!$cart_items)
                 return view('user.cart')->withErrors(['message' => 'No Products Found']);
             else{

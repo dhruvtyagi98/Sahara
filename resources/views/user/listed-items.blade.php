@@ -60,7 +60,7 @@ $(document).ready(function(){
 
 function getProduct(id){
     $.ajax({
-        url: 'get_product/'+id,
+        url: 'seller/product/'+id,
         type: 'GET',
         success:function(response){
             if (response.success) {

@@ -15,7 +15,7 @@
     </div>
     <div class="row" id="add_product_div">
         <div class="card shadow" style="padding-inline: 2%;">
-            <form action="/product/add_product" method="POST" enctype="multipart/form-data">
+            <form action="/seller/product" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body" style="margin-top: 2%;">
                     <div class="row">

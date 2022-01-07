@@ -28,10 +28,10 @@ class ProductController extends Controller
      * @param object $products
      * @return array products/error
      */
-    public function getUserProductsView()
+    public function getUserProductsView(Request $request)
     {
         try {
-            $products = ProductService::getAllUserProducts(Auth::user()->id);
+            $products = ProductService::getAllUserProducts($request->id);
             if (!$products)
                 return view('user.listed-items')->withErrors(['message' => 'No Products Found']);
             else
