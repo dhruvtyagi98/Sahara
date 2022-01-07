@@ -226,3 +226,13 @@ body{
 #search_filter > .card {
     margin-left: 10%;
 }
+
+#order_page > .row > .card {
+    margin-inline: 15%;
+    width: 70%;
+}
+
+#orders_img{
+    border-radius: 50%;
+    /* height: 5%; */
+}

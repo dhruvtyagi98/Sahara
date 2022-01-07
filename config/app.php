@@ -228,6 +228,7 @@ return [
         'UserService' =>  App\Facades\UserFacade::class,
         'ProductService' =>  App\Facades\ProductFacade::class,
         'CartServices' =>  App\Facades\CartFacade::class,
+        'OrderService' =>  App\Facades\OrderFacade::class,
 
     ],
 
