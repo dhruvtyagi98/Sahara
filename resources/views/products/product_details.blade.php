@@ -9,9 +9,16 @@
                 <div class="col">
                     <h4 class="card-title">{{ $product->name }}</h4>
                 </div>
-                <div class="col d-flex justify-content-end">
-                    <button class="btn btn-primary" style="margin-right: 50px">Add to cart</button>
-                </div>
+                @if (Auth::user())
+                    <form action="/user/add_to_cart" method="POST">
+                        @csrf
+                        <div class="col d-flex justify-content-end">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="item_id" value="{{ $product->id }}">
+                            <button class="btn btn-primary" type="submit" style="margin-right: 50px">Add to cart</button>
+                        </div>
+                    </form>
+                @endif
             </div>
             <div class="row mb-5">
                 <h5 class="mb-3">Description</h5>

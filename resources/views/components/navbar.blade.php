@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link navbar_link" href="#">
+                    <a class="nav-link navbar_link" href="/user/get_cart/{{ Auth::user()->id }}">
                         <ion-icon name="cart-outline"></ion-icon>&nbsp;Cart
                     </a>
                 </li>

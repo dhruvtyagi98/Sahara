@@ -227,6 +227,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'UserService' =>  App\Facades\UserFacade::class,
         'ProductService' =>  App\Facades\ProductFacade::class,
+        'CartServices' =>  App\Facades\CartFacade::class,
 
     ],
 
