@@ -18,7 +18,8 @@ Route::get('/', function () {
     return view('homepage');
 })->name('homepage');
 
-Route::get('get_popular_products', 'ProductController@getPopularProducts');
+Route::get('popular_products', 'ProductController@getPopularProducts');
+Route::get('similar_products', 'ProductController@getSimilarProducts');
 Route::get('product/{id}', 'ProductController@getProductDetails');
 Route::get('search', 'ProductController@search');
 Route::post('search', 'ProductController@searchFilter');
