@@ -185,10 +185,10 @@ class ProductController extends Controller
         }
     }
 
-    public function getSimilarProducts(Request $request)
+    public function getSimilarProducts()
     {
         try {
-            $results = ProductService::getSimilarProducts($request->id);
+            $results = ProductService::getSimilarProducts(Auth::user()->id);
             
             if (empty($results)) 
             return (['success' => false, 'data' => $results]);

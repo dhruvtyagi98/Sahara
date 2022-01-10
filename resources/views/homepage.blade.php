@@ -56,9 +56,7 @@
 <script>
     $(document).ready(function(){
         getPopularProducts();
-        if ('{{ Auth()->user() }}') {
-            getSimilarProducts();
-        }
+        getSimilarProducts();
     });
 
     function getPopularProducts() {
@@ -143,11 +141,10 @@
     }
 
     function getSimilarProducts() {
-        var id = '{{ Auth::user()->id }}';
+        
         $.ajax({
             url: '/similar_products',
             type: 'GET',
-            data: {'id': id},
             success:function (response) {
                 if (response.success) {
                     var str = '';

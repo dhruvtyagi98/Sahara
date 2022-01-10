@@ -163,7 +163,6 @@ class ProductService
             $last_order       = Items::where('id', $order_item_ids[0])->first();
             $similar_products = Items::where('category', $last_order->category)
                                     ->where('gender', $last_order->gender)
-                                    ->where('size', $last_order->size)
                                     ->take(4)
                                     ->get();
             
