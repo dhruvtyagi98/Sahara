@@ -138,6 +138,14 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * This functions gets items from items table on the basis of name and description 
+     * sorted in ascending order by default but can also return in descending order.    
+     *
+     * @param SearchRequest $request
+     * @param Collection $products
+     * @return Collection $products
+     */
     public function search(SearchRequest $request)
     {
         try {
@@ -153,6 +161,15 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * This functions gets items from items table on the basis of name and description 
+     * sorted in ascending order by default but can also return in descending order and 
+     * also filtered on the basis of category and gender.    
+     *
+     * @param Request $request
+     * @param Collection $products
+     * @return Collection $products
+     */
     public function searchFilter(Request $request)
     {
         try {
@@ -163,6 +180,20 @@ class ProductController extends Controller
             else
                 return view('products.search_results')->with(['products' => $products]);
 
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getSimilarProducts(Request $request)
+    {
+        try {
+            $results = ProductService::getSimilarProducts($request->id);
+            
+            if (empty($results)) 
+            return (['success' => false, 'data' => $results]);
+        else
+            return (['success' => true, 'data' => $results]);
         } catch (Throwable $th) {
             throw $th;
         }

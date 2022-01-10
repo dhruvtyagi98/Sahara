@@ -41,56 +41,29 @@
 </div>
 
 {{-- For the User On the basis of last purchase --}}
-<div class="row" id="for_you_div">
-    <div class="row" id="homepage_heading2">
-        <h1>For You</h1>
-    </div>
-    <div class="row" id="for_you_content">
-        <div class="col-3">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('images/jumbo1.jpg') }}" class="card-img-top d-block w-100" alt="...">
-                <div class="card-body">
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
+@if (Auth::user())
+    <div class="row" id="for_you_div">
+        <div class="row" id="homepage_heading2">
+            <h1>For You</h1>
         </div>
-        <div class="col-3">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('images/jumbo1.jpg') }}" class="card-img-top d-block w-100" alt="...">
-                <div class="card-body">
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('images/jumbo1.jpg') }}" class="card-img-top d-block w-100" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('images/jumbo1.jpg') }}" class="card-img-top d-block w-100" alt="...">
-                <div class="card-body">
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
+        <div class="row" id="for_you_content">
         </div>
     </div>
-</div>
+@endif
 
 @endsection
 @section('scripts')
 <script>
     $(document).ready(function(){
         getPopularProducts();
+        if ('{{ Auth()->user() }}') {
+            getSimilarProducts();
+        }
     });
 
     function getPopularProducts() {
         $.ajax({
-            url: '/get_popular_products',
+            url: '/popular_products',
             type: 'GET',
             success:function (response) {
                 if (response.success) {
@@ -167,6 +140,39 @@
             return description;
         }
         return description;
+    }
+
+    function getSimilarProducts() {
+        var id = '{{ Auth::user()->id }}';
+        $.ajax({
+            url: '/similar_products',
+            type: 'GET',
+            data: {'id': id},
+            success:function (response) {
+                if (response.success) {
+                    var str = '';
+                    stringlength = 50;
+                    if($( window ).width()<1363)
+                        var stringlength = 25;
+                    
+                    $.each(response.data,function(k,v) {
+                        var description = reduceDescription(v.description,stringlength);;
+                        str += '<div class="col">\
+                                    <div class="card" style="width: 18rem;">\
+                                        <img src="images/'+v.picture+'" class="card-img-top d-block w-100" alt="...">\
+                                        <div class="card-body">\
+                                            <h5 class="card-title">'+v.name+'</h5>\
+                                            <p class="card-text">'+description+'</p>\
+                                        </div>\
+                                    </div>\
+                                </div>';
+                    });
+                    $('#for_you_content').append(str);
+                }
+                else
+                    $('#for_you_content').hide();
+            }
+        });
     }
 </script>
 @endsection

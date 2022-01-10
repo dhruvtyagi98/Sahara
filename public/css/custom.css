@@ -125,12 +125,12 @@ body{
     margin-left: 3%;
 }
 
-#for_you_content > .col-3 > .card {
+#for_you_content > .col > .card {
     border-radius: 10px;
     margin-bottom: 10%;
 }
 
-#for_you_content > .col-3 > .card > .card-img-top{
+#for_you_content > .col > .card > .card-img-top{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     height: 250px;

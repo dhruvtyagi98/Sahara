@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Items;
+use App\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 
@@ -94,7 +95,7 @@ class ProductService
      * name and description of the product that the user searched.
      *
      * @param SearchRequest $request
-     * @param object $products
+     * @param Collection $products
      * @return object/bool $products/false
      */
     public function search($request)
@@ -147,6 +148,29 @@ class ProductService
                 return false;
             else    
                 return $products->appends(Input::except('page'));
+
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function getSimilarProducts($user_id)
+    {
+        try {
+            $order            = Order::where('user_id', $user_id)->latest('created_at')->first();
+            $order_item_ids   = json_decode($order['order']); 
+
+            $last_order       = Items::where('id', $order_item_ids[0])->first();
+            $similar_products = Items::where('category', $last_order->category)
+                                    ->where('gender', $last_order->gender)
+                                    ->where('size', $last_order->size)
+                                    ->take(4)
+                                    ->get();
+            
+            if (empty($similar_products))
+                return false;
+            else    
+                return $similar_products;
 
         } catch (Throwable $th) {
             throw $th;
