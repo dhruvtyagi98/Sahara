@@ -5,11 +5,19 @@ namespace App\Services;
 use App\Cart;
 use App\Items;
 use App\Order;
+use App\Repositories\Interfaces\CartRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartServices
 {
+    private $cart_repository;
+
+    public function __construct(CartRepositoryInterface $cart_repository)
+    {
+        $this->cart_repository = $cart_repository;
+    }
+
     /**
      * Add products to cart table.
      *
@@ -86,7 +94,7 @@ class CartServices
     public function checkout($id, $price)
     {
         try {
-            $cart_items = Cart::where('user_id', $id)->get();
+            $cart_items = $this->cart_repository->getCart($id);
             $order_ids  = [];
             $i          = 0;
 
@@ -106,7 +114,7 @@ class CartServices
             if ($order->save()){
                 
                 for ($i=0; $i < count($order_ids); $i++) {
-                    $remove_from_cart = Cart::where('user_id', $id)->delete();   
+                    $remove_from_cart = $this->cart_repository->deleteByUserId($id);   
                 }
                 return true;
             }

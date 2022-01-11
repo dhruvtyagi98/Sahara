@@ -2,11 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Interfaces\CartRepositoryInterface;
 use CartServices;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    private $cart_repository;
+
+    public function __construct(CartRepositoryInterface $cart_repository)
+    {
+        $this->cart_repository = $cart_repository;
+    }
+
     /**
      * This function gets the items from cart table and returns the view of
      * cart
@@ -18,7 +26,7 @@ class CartController extends Controller
     public function getCart(Request $request)
     {
         try {
-            $cart_items = CartServices::getCartItems($request->id); 
+            $cart_items = $this->cart_repository->getUserCart($request->id);
             if (!$cart_items)
                 return view('user.cart')->withErrors(['message' => 'No Products Found']);
             else{
@@ -39,7 +47,7 @@ class CartController extends Controller
      */
     public function addToCart(Request $request)
     {
-        $result = CartServices::addToCart($request);
+        $result = $this->cart_repository->addToCart($request);
 
         if ($result) 
             return back()->with('message', 'Product Added To Cart');
@@ -49,10 +57,10 @@ class CartController extends Controller
 
     public function removeFromCart(Request $request)
     {
-        $result = CartServices::removeFromCart($request->id);
+        $result = $this->cart_repository->deleteById($request->id);
 
         if ($result) 
-            return back()->with('message', 'Product Added To Cart');
+            return back()->with('message', 'Product Removed To Cart');
         else    
             return back()->withErrors('Please try Again Later!');
     }
