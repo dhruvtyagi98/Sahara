@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\RegisterEmailEvent;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -65,7 +66,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name'     => $data['name'],
             'email'    => $data['register_email'],
             'password' => Hash::make($data['register_password']),
@@ -73,5 +74,8 @@ class RegisterController extends Controller
             'address'  => $data['address'],
             'role'     => $data['role'],
         ]);
+
+        event(new RegisterEmailEvent($data['register_email']));
+        return $user;
     }
 }
