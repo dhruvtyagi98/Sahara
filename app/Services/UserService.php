@@ -36,4 +36,18 @@ class UserService
         else
             return false;
     }
+
+    public function checkPassword($request)
+    {
+        try {
+            $hashed_password = User::select('password')->where('email', $request->email)->first();
+
+            if (Hash::check($request->current_password, $hashed_password->password))
+                return true;
+            else 
+                return false;
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
 }

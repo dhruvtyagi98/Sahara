@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use ProductService;
 use App\Http\Requests\AddProductRequest;
 use App\Http\Requests\SearchRequest;
-use App\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -93,26 +92,9 @@ class ProductController extends Controller
      */
     public function getPopularProducts()
     {
-        $products         = Items::all();
-        $popular_products = [];
-        $results          = [];
-        $i                = 0;
+        $results = ProductService::getPopularProducts();
 
-        foreach ($products as $product) {
-            $available            = $product->quantity;
-            $sold                 = $product->quantity_sold;
-            $total                = $available + $sold;
-            $popular_products[$i] = ['calc' => $sold / $total, 'id' => $product->id]; 
-            $i++;
-        }
-
-        arsort($popular_products);
-        $popular_products = array_slice($popular_products,0,9);
-
-        for ($i = 0; $i < count($popular_products); $i++)
-            $results[$i] = Items::where('id', $popular_products[$i]['id'])->first(); 
-
-        if (empty($results)) 
+        if (!$results) 
             return (['success' => false, 'data' => $results]);
         else
             return (['success' => true, 'data' => $results]);
