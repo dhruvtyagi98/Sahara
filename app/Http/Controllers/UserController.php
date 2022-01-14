@@ -38,10 +38,17 @@ class UserController extends Controller
             return back()->withErrors('Please try Again Later!');
     }
 
+    /**
+     * Checks if the password entered by the user is the same as the database.
+     *
+     * @param Request $request
+     * @param bool $check_password
+     * @return array
+     */
     public function checkPassword(Request $request)
     {
-        $hashed_password = User::select('password')->where('email', $request->email)->first();
-        if(Hash::check($request->current_password, $hashed_password->password))
+        $check_password = UserService::checkPassword($request); 
+        if($check_password)
             return (['success' => true]);
         else
             return (['success' => false]);

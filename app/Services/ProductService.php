@@ -175,4 +175,31 @@ class ProductService
             throw $th;
         }
     }
+
+    public function getPopularProducts()
+    {
+        $products         = Items::all();
+        $popular_products = [];
+        $results          = [];
+        $i                = 0;
+
+        foreach ($products as $product) {
+            $available            = $product->quantity;
+            $sold                 = $product->quantity_sold;
+            $total                = $available + $sold;
+            $popular_products[$i] = ['calc' => $sold / $total, 'id' => $product->id]; 
+            $i++;
+        }
+
+        arsort($popular_products);
+        $popular_products = array_slice($popular_products,0,9);
+
+        for ($i = 0; $i < count($popular_products); $i++)
+            $results[$i] = Items::where('id', $popular_products[$i]['id'])->first();
+        
+        if (empty($results))
+            return false;
+        else
+            return $results;
+    }
 }
