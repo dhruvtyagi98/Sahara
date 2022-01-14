@@ -23,6 +23,7 @@ Route::get('similar_products', 'ProductController@getSimilarProducts');
 Route::get('product/{id}', 'ProductController@getProductDetails');
 Route::get('search', 'ProductController@search');
 Route::post('search', 'ProductController@searchFilter');
+Route::get('orders', 'OrderController@getAllOrders');
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth']], function()
 {

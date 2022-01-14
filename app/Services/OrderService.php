@@ -38,4 +38,18 @@ class OrderService
             throw $th;
         }
     }
+
+    public function getAllOrders()
+    {
+        try {
+            $orders = Order::all()->toArray();
+
+            if (empty($orders))
+                return false;
+            else    
+                return $orders;
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
 }
