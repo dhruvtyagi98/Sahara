@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services;
 
@@ -35,7 +35,7 @@ class CartServices
 
             if ($cart->save())
                 return true;
-            else    
+            else
                 return false;
         } catch (Throwable $th) {
             throw $th;
@@ -53,7 +53,7 @@ class CartServices
 
             if (empty($cart_items))
                 return false;
-            else    
+            else
                 return $cart_items;
         } catch (Throwable $th) {
             throw $th;
@@ -64,7 +64,7 @@ class CartServices
     {
         $price['item'] = 0;
         foreach ($products as $product)
-            $price['item'] += $product->price; 
+            $price['item'] += $product->price;
 
         $price['tax']   = round($price['item'] / 18, 2);
         $price['total'] = $price['item'] + $price['tax'];
@@ -77,7 +77,7 @@ class CartServices
             $cart = Cart::where('id', $id)->delete();
             if ($cart)
                 return true;
-            else    
+            else
                 return false;
         } catch (Throwable $th) {
             throw $th;
@@ -109,16 +109,16 @@ class CartServices
             $order->user_id = $id;
             $order->order   = json_encode($order_ids);
             $order->address = Auth::user()->address;
-            $order->price   = $price; 
+            $order->price   = $price;
 
             if ($order->save()){
-                
+
                 for ($i=0; $i < count($order_ids); $i++) {
-                    $remove_from_cart = $this->cart_repository->deleteByUserId($id);   
+                    $remove_from_cart = $this->cart_repository->deleteByUserId($id);
                 }
                 return true;
             }
-            else    
+            else
                 return false;
         } catch (Throwable $th) {
             throw $th;

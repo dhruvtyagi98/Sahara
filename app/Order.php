@@ -18,4 +18,14 @@ class Order extends Model
         'payment_method',
         'address',
     ];
+
+    public function getAddressAttribute($value)
+    {
+        return ucfirst($value);
+    }
+
+    public function setAddressAttribute($value)
+    {
+        $this->attributes['address'] = strtoupper($value);
+    }
 }
