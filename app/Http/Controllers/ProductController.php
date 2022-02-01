@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use ProductService;
 use App\Http\Requests\AddProductRequest;
 use App\Http\Requests\SearchRequest;
+use App\Items;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -74,16 +75,16 @@ class ProductController extends Controller
         $request->validated();
         $result = ProductService::addProduct($request);
 
-        if ($result) 
+        if ($result)
             return back()->with('message', 'Product Added Successfully');
-        else    
+        else
             return back()->withErrors('Please try Again Later!');
     }
 
     /**
      * Gets and calulates the popular products on the basis of how many products
      * were available to how many products were sold.
-     * 
+     *
      * @param Item $$products
      * @param array $popular_products
      * @param array $results
@@ -94,7 +95,7 @@ class ProductController extends Controller
     {
         $results = ProductService::getPopularProducts();
 
-        if (!$results) 
+        if (!$results)
             return (['success' => false, 'data' => $results]);
         else
             return (['success' => true, 'data' => $results]);
@@ -121,8 +122,8 @@ class ProductController extends Controller
     }
 
     /**
-     * This functions gets items from items table on the basis of name and description 
-     * sorted in ascending order by default but can also return in descending order.    
+     * This functions gets items from items table on the basis of name and description
+     * sorted in ascending order by default but can also return in descending order.
      *
      * @param SearchRequest $request
      * @param Collection $products
@@ -144,9 +145,9 @@ class ProductController extends Controller
     }
 
     /**
-     * This functions gets items from items table on the basis of name and description 
-     * sorted in ascending order by default but can also return in descending order and 
-     * also filtered on the basis of category and gender.    
+     * This functions gets items from items table on the basis of name and description
+     * sorted in ascending order by default but can also return in descending order and
+     * also filtered on the basis of category and gender.
      *
      * @param Request $request
      * @param Collection $products
@@ -158,9 +159,13 @@ class ProductController extends Controller
             $products = ProductService::searchFilter($request);
 
             if (!$products)
-                return view('products.search_results')->withErrors(['message' => 'No Products Found', 'products' => null]);
+                return $request->is('api/*')
+                    ? 'No Products Found'
+                    : view('products.search_results')->withErrors(['message' => 'No Products Found', 'products' => null]);
             else
-                return view('products.search_results')->with(['products' => $products]);
+                return $request->is('api/*')
+                    ? $products
+                    : view('products.search_results')->with(['products' => $products]);
 
         } catch (Throwable $th) {
             throw $th;
@@ -171,11 +176,27 @@ class ProductController extends Controller
     {
         try {
             $results = ProductService::getSimilarProducts(Auth::user()->id);
-            
-            if (empty($results)) 
+
+            if (empty($results))
             return (['success' => false, 'data' => $results]);
         else
             return (['success' => true, 'data' => $results]);
+        } catch (Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function apiSearchFilter(Request $request)
+    {
+        try {
+            $items = new Items();
+            $products = $items->searchFilter($request);
+            if(!$products){
+                return "No Products Found.";
+            }
+            else{
+                return(['success' => true, 'page' => $request->page ,'data' => $products]);
+            }
         } catch (Throwable $th) {
             throw $th;
         }
